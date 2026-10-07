@@ -1,0 +1,98 @@
+:root{--bg:#f3f6f5;--card:#fff;--ink:#0f1f1c;--mute:#5f726d;--line:#dfe7e4;--soft:#e3f2ef;--brand:#0f766e;--brand-ink:#fff;--ok:#16a34a;--bad:#dc2626;--r:14px}
+body.dark{--bg:#0a1412;--card:#111e1b;--ink:#e6f1ee;--mute:#8aa39c;--line:#1f322e;--soft:#16302b;--brand:#2dd4bf;--brand-ink:#04211d}
+*{box-sizing:border-box;margin:0}
+body{font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+[hidden]{display:none!important}
+
+/* shell */
+.shell{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;padding:20px 12px;background:var(--card);border-right:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;margin:0 8px 24px;font-size:18px}
+.logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--brand);color:var(--brand-ink);font-weight:800}
+#nav{display:grid;gap:4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:0;border-radius:10px;background:none;color:var(--mute);font:inherit;font-weight:500;text-align:left;cursor:pointer}
+.nav-item:hover{background:var(--bg);color:var(--ink)}
+.nav-item.active{background:var(--soft);color:var(--brand)}
+.main{min-width:0;padding:28px clamp(16px,4vw,40px) 40px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}
+.topbar h1{font-size:24px;letter-spacing:-.02em}
+.topbar p{color:var(--mute)}
+.tools{display:flex;gap:10px;align-items:center}
+.pill{display:flex;align-items:center;gap:6px;height:40px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--mute);font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.dot.off{background:var(--bad)}
+.icon-btn{width:40px;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--card);font-size:16px;cursor:pointer}
+
+/* cards */
+.grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:20px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card h2{font-size:15px;margin-bottom:14px}
+
+/* calculator */
+.display{min-height:96px;padding:6px 4px 18px;text-align:right;overflow:hidden}
+#prev{min-height:22px;color:var(--mute)}
+#cur{font-size:40px;font-weight:700;letter-spacing:-.02em;word-break:break-all}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.keys button{height:52px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;font-size:17px;font-weight:600;cursor:pointer}
+.keys button:hover{background:var(--soft)}
+.keys button:active{transform:scale(.97)}
+.keys .op,.keys .fn{color:var(--brand)}
+.keys .fn{font-size:14px}
+.keys .eq{grid-row:span 2;height:auto;background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.keys .eq:hover{background:var(--brand);opacity:.9}
+.keys .zero{grid-column:span 2}
+#history{display:grid;gap:8px;list-style:none;padding:0}
+#history li{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer}
+#history li:hover{background:var(--soft)}
+#history span,.empty{color:var(--mute)}
+
+/* forms */
+.form{display:grid;gap:14px;max-width:580px}
+.row{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:grid;gap:6px;min-width:0}
+label{font-size:13px;font-weight:600;color:var(--mute)}
+input,select{width:100%;height:42px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+:is(input,select,button):focus-visible{outline:2px solid var(--brand);outline-offset:1px}
+.btn{height:44px;border:0;border-radius:10px;background:var(--brand);color:var(--brand-ink);font:inherit;font-weight:600;cursor:pointer}
+.btn:hover{opacity:.9}
+.swap{width:42px;height:42px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font-size:16px;cursor:pointer}
+.result{display:grid;gap:4px;padding:16px;border-radius:12px;background:var(--soft)}
+.result strong{font-size:26px;letter-spacing:-.02em}
+.result small,.result p{color:var(--mute)}
+.result.err{color:var(--bad)}
+
+/* market */
+.bar{display:flex;align-items:end;gap:16px;flex-wrap:wrap}
+.bar .field{width:min(100%,300px)}
+.bar small{color:var(--mute)}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:16px}
+.stat{display:grid;gap:4px;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.stat span{color:var(--mute);font-size:13px}
+.stat strong{font-size:20px}
+
+/* formula library and percentage tools */
+.formula-library,#formula-library{display:grid;gap:16px}
+.formula-library .formula-list,#formula-library .formula-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.formula-library .formula-item,#formula-library .formula-item{display:grid;gap:8px;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.formula-library .formula-item h3,#formula-library .formula-item h3{font-size:15px}
+.formula-library .formula-item p,#formula-library .formula-item p{color:var(--mute)}
+.formula-library code,#formula-library code{display:block;padding:10px 12px;border-radius:8px;background:var(--soft);color:var(--brand);font:600 14px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}
+.percentage-interface,.discount-interface,#percentage,#discount{display:grid;gap:16px;max-width:680px}
+.percentage-interface .form,.discount-interface .form,#percentage .form,#discount .form{max-width:none}
+.percentage-interface .result,.discount-interface .result,#percentage .result,#discount .result{margin-top:2px}
+.percentage-interface .result strong,.discount-interface .result strong,#percentage .result strong,#discount .result strong{font-variant-numeric:tabular-nums}
+.percentage-interface .result small,.discount-interface .result small,#percentage .result small,#discount .result small{font-size:13px}
+.formula-library .empty,#formula-library .empty{padding:18px;border:1px dashed var(--line);border-radius:12px;text-align:center}
+
+@media(max-width:860px){
+  .shell{display:block}
+  .sidebar{position:fixed;inset:auto 0 0;z-index:5;height:auto;padding:6px;border:0;border-top:1px solid var(--line)}
+  .brand{display:none}
+  #nav{grid-auto-flow:column;grid-auto-columns:1fr}
+  .nav-item{flex-direction:column;gap:2px;padding:8px 4px;font-size:12px;text-align:center}
+  .main{padding-bottom:96px}
+  .grid,.row{grid-template-columns:1fr}
+  .swap{justify-self:center;transform:rotate(90deg)}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
