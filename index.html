@@ -3,11 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <meta name="description" content="CalcX: a calculator, triangle solver and live currency converter.">
 <meta name="theme-color" content="#0f766e">
+
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- App icons -->
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
+
 <title>CalcX | Calculator and Currency Workspace</title>
-<link rel="manifest" href="manifest.json">
+
 <link rel="stylesheet" href="style.css">
+
 <style>
   .nav-item {
     display: flex;
@@ -35,12 +45,20 @@
   }
 </style>
 </head>
+
 <body>
+
 <div class="shell">
 
   <aside class="sidebar">
-    <div class="brand"><span class="logo">C</span><b>CalcX</b></div>
+
+    <div class="brand">
+      <span class="logo">C</span>
+      <b>CalcX</b>
+    </div>
+
     <nav id="nav" aria-label="Workspace">
+
       <button class="nav-item active" data-view="calc">
         <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3.5" y="5" width="17" height="14" rx="2.5"></rect>
@@ -49,6 +67,7 @@
         </svg>
         Calculator
       </button>
+
       <button class="nav-item" data-view="triangle">
         <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 4.5 19 18H5L12 4.5Z"></path>
@@ -56,6 +75,7 @@
         </svg>
         Triangle solver
       </button>
+
       <button class="nav-item" data-view="convert">
         <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M7 7h10l-2.5-2.5M17 17H7l2.5 2.5"></path>
@@ -63,6 +83,7 @@
         </svg>
         Converter
       </button>
+
       <button class="nav-item" data-view="market">
         <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4 18h16"></path>
@@ -70,201 +91,728 @@
         </svg>
         Market rates
       </button>
-      <button class="nav-item" data-view="percent">Percentage &amp; discount</button>
-      <button class="nav-item" data-view="formulas">Formula library</button>
+
+      <button class="nav-item" data-view="percent">
+        Percentage &amp; discount
+      </button>
+
+      <button class="nav-item" data-view="formulas">
+        Formula library
+      </button>
+
     </nav>
   </aside>
 
   <div class="main">
+
     <header class="topbar">
-      <div><h1 id="viewTitle">Calculator</h1><p id="viewSub"></p></div>
+
+      <div>
+        <h1 id="viewTitle">Calculator</h1>
+        <p id="viewSub"></p>
+      </div>
+
       <div class="tools">
-        <span class="pill"><i class="dot" id="statusDot"></i><span id="connectionStatus">Online</span></span>
-        <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+
+        <span class="pill">
+          <i class="dot" id="statusDot"></i>
+          <span id="connectionStatus">Online</span>
+        </span>
+
+        <button
+          class="icon-btn"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M21 12.8A8.8 8.8 0 0 1 11.2 3a9 9 0 1 0 9.8 9.8Z"></path>
           </svg>
         </button>
+
       </div>
+
     </header>
 
     <main>
+
       <!-- Calculator -->
       <section class="view" id="view-calc">
+
         <div class="grid">
+
           <div class="card">
-            <div class="display"><div id="prev"></div><div id="cur">0</div></div>
+
+            <div class="display">
+              <div id="prev"></div>
+              <div id="cur">0</div>
+            </div>
+
             <div class="keys" id="keys"></div>
+
           </div>
+
           <div class="card">
+
             <h2>History</h2>
+
             <ul id="history"></ul>
+
           </div>
+
         </div>
+
       </section>
+
 
       <!-- Triangle solver -->
       <section class="view" id="view-triangle" hidden>
+
         <div class="card form">
+
           <div class="two">
-            <div class="field"><label for="tMethod">Ratio</label>
+
+            <div class="field">
+
+              <label for="tMethod">Ratio</label>
+
               <select id="tMethod">
                 <option value="sin">SOH (sine)</option>
                 <option value="cos">CAH (cosine)</option>
                 <option value="tan">TOA (tangent)</option>
-              </select></div>
-            <div class="field"><label for="tMode">Find the</label>
+              </select>
+
+            </div>
+
+            <div class="field">
+
+              <label for="tMode">Find the</label>
+
               <select id="tMode">
                 <option value="side">Missing side</option>
                 <option value="angle">Missing angle</option>
-              </select></div>
+              </select>
+
+            </div>
+
           </div>
+
           <div class="two">
-            <div class="field"><label for="t1" id="l1"></label><input id="t1" type="number" step="any" min="0" inputmode="decimal"></div>
-            <div class="field"><label for="t2" id="l2"></label><input id="t2" type="number" step="any" min="0" inputmode="decimal"></div>
+
+            <div class="field">
+              <label for="t1" id="l1"></label>
+              <input
+                id="t1"
+                type="number"
+                step="any"
+                min="0"
+                inputmode="decimal"
+              >
+            </div>
+
+            <div class="field">
+              <label for="t2" id="l2"></label>
+              <input
+                id="t2"
+                type="number"
+                step="any"
+                min="0"
+                inputmode="decimal"
+              >
+            </div>
+
           </div>
-          <button class="btn" id="tSolve">Solve triangle</button>
-          <div class="result" id="tOut">Enter your known values, then solve.</div>
+
+          <button class="btn" id="tSolve">
+            Solve triangle
+          </button>
+
+          <div class="result" id="tOut">
+            Enter your known values, then solve.
+          </div>
+
         </div>
+
       </section>
+
 
       <!-- Converter -->
       <section class="view" id="view-convert" hidden>
+
         <div class="card form">
-          <div class="field"><label for="amount">Amount</label>
-            <input id="amount" type="number" min="0" step="any" inputmode="decimal" placeholder="100"></div>
+
+          <div class="field">
+
+            <label for="amount">Amount</label>
+
+            <input
+              id="amount"
+              type="number"
+              min="0"
+              step="any"
+              inputmode="decimal"
+              placeholder="100"
+            >
+
+          </div>
+
           <div class="row">
-            <div class="field"><label for="from">From</label>
-              <input id="fromQ" type="search" placeholder="Search currency" autocomplete="off" aria-label="Search the From currency">
-              <select id="from"></select></div>
-            <button class="swap" id="swap" aria-label="Swap currencies">⇄</button>
-            <div class="field"><label for="to">To</label>
-              <input id="toQ" type="search" placeholder="Search currency" autocomplete="off" aria-label="Search the To currency">
-              <select id="to"></select></div>
+
+            <div class="field">
+
+              <label for="from">From</label>
+
+              <input
+                id="fromQ"
+                type="search"
+                placeholder="Search currency"
+                autocomplete="off"
+                aria-label="Search the From currency"
+              >
+
+              <select id="from"></select>
+
+            </div>
+
+            <button
+              class="swap"
+              id="swap"
+              aria-label="Swap currencies"
+            >
+              ⇄
+            </button>
+
+            <div class="field">
+
+              <label for="to">To</label>
+
+              <input
+                id="toQ"
+                type="search"
+                placeholder="Search currency"
+                autocomplete="off"
+                aria-label="Search the To currency"
+              >
+
+              <select id="to"></select>
+
+            </div>
+
           </div>
-          <button class="btn" id="convertBtn">Convert</button>
+
+          <button class="btn" id="convertBtn">
+            Convert
+          </button>
+
           <div class="result" aria-live="polite">
+
             <small>Converted amount</small>
+
             <strong id="cAmt">–</strong>
-            <p id="cRate">Enter an amount to begin.</p>
+
+            <p id="cRate">
+              Enter an amount to begin.
+            </p>
+
             <small id="cTime"></small>
+
           </div>
+
         </div>
+
       </section>
+
 
       <!-- Market rates -->
       <section class="view" id="view-market" hidden>
+
         <div class="bar">
-          <div class="field"><label for="mBase">Base currency</label><select id="mBase"></select></div>
+
+          <div class="field">
+
+            <label for="mBase">
+              Base currency
+            </label>
+
+            <select id="mBase"></select>
+
+          </div>
+
           <small id="mTime"></small>
+
         </div>
+
         <div class="stats" id="mGrid"></div>
+
       </section>
+
 
       <!-- Percentage and discount tools -->
       <section class="view" id="view-percent" hidden>
+
         <div class="grid">
+
           <div class="card form">
+
             <h2>Percentage of a value</h2>
-            <div class="field"><label for="percentRate">Percentage (%)</label><input id="percentRate" type="number" min="0" step="any" inputmode="decimal" placeholder="15"></div>
-            <div class="field"><label for="percentValue">Value</label><input id="percentValue" type="number" step="any" inputmode="decimal" placeholder="200"></div>
-            <button class="btn" id="percentCalc">Calculate</button>
-            <div class="result" id="percentResult" aria-live="polite">Enter a percentage and a value.
-              <details class="calculation-steps" id="percentSteps" hidden>
-                <summary>Show calculation steps</summary>
-                <ol></ol>
-              </details>
+
+            <div class="field">
+
+              <label for="percentRate">
+                Percentage (%)
+              </label>
+
+              <input
+                id="percentRate"
+                type="number"
+                min="0"
+                step="any"
+                inputmode="decimal"
+                placeholder="15"
+              >
+
             </div>
+
+            <div class="field">
+
+              <label for="percentValue">
+                Value
+              </label>
+
+              <input
+                id="percentValue"
+                type="number"
+                step="any"
+                inputmode="decimal"
+                placeholder="200"
+              >
+
+            </div>
+
+            <button class="btn" id="percentCalc">
+              Calculate
+            </button>
+
+            <div
+              class="result"
+              id="percentResult"
+              aria-live="polite"
+            >
+              Enter a percentage and a value.
+
+              <details
+                class="calculation-steps"
+                id="percentSteps"
+                hidden
+              >
+
+                <summary>
+                  Show calculation steps
+                </summary>
+
+                <ol></ol>
+
+              </details>
+
+            </div>
+
           </div>
+
+
           <div class="card form">
+
             <h2>Discount calculator</h2>
-            <div class="field"><label for="discountPrice">Original price</label><input id="discountPrice" type="number" min="0" step="any" inputmode="decimal" placeholder="100"></div>
-            <div class="field"><label for="discountRate">Discount (%)</label><input id="discountRate" type="number" min="0" max="100" step="any" inputmode="decimal" placeholder="20"></div>
-            <button class="btn" id="discountCalc">Calculate discount</button>
-            <div class="result" id="discountResult" aria-live="polite">Enter a price and discount percentage.
-              <details class="calculation-steps" id="discountSteps" hidden>
-                <summary>Show calculation steps</summary>
-                <ol></ol>
-              </details>
+
+            <div class="field">
+
+              <label for="discountPrice">
+                Original price
+              </label>
+
+              <input
+                id="discountPrice"
+                type="number"
+                min="0"
+                step="any"
+                inputmode="decimal"
+                placeholder="100"
+              >
+
             </div>
+
+            <div class="field">
+
+              <label for="discountRate">
+                Discount (%)
+              </label>
+
+              <input
+                id="discountRate"
+                type="number"
+                min="0"
+                max="100"
+                step="any"
+                inputmode="decimal"
+                placeholder="20"
+              >
+
+            </div>
+
+            <button class="btn" id="discountCalc">
+              Calculate discount
+            </button>
+
+            <div
+              class="result"
+              id="discountResult"
+              aria-live="polite"
+            >
+              Enter a price and discount percentage.
+
+              <details
+                class="calculation-steps"
+                id="discountSteps"
+                hidden
+              >
+
+                <summary>
+                  Show calculation steps
+                </summary>
+
+                <ol></ol>
+
+              </details>
+
+            </div>
+
           </div>
+
         </div>
+
       </section>
+
 
       <!-- Formula library -->
       <section class="view" id="view-formulas" hidden>
+
         <div class="card form">
+
           <h2>Formula library</h2>
-          <div class="field"><label for="formulaSearch">Search formulas</label><input id="formulaSearch" type="search" placeholder="Search by name or topic" autocomplete="off"></div>
-          <div class="stats" id="formulaList">
-            <article class="card formula-item"><h3>Percentage</h3><p>Find a percentage of a value.</p><p><strong>Result = Value × Percentage ÷ 100</strong></p></article>
-            <article class="card formula-item"><h3>Percentage change</h3><p>Measure the change from an original value.</p><p><strong>Change (%) = (New − Original) ÷ Original × 100</strong></p></article>
-            <article class="card formula-item"><h3>Discount</h3><p>Calculate the saving and sale price.</p><p><strong>Saving = Price × Discount ÷ 100</strong><br><strong>Sale price = Price − Saving</strong></p></article>
-            <article class="card formula-item"><h3>Triangle area</h3><p>Use the base and perpendicular height.</p><p><strong>Area = ½ × Base × Height</strong></p></article>
-            <article class="card formula-item"><h3>Pythagorean theorem</h3><p>For a right-angled triangle.</p><p><strong>Hypotenuse² = Side₁² + Side₂²</strong></p></article>
-            <article class="card formula-item"><h3>Circle area</h3><p>Use the circle's radius.</p><p><strong>Area = π × Radius²</strong></p></article>
+
+          <div class="field">
+
+            <label for="formulaSearch">
+              Search formulas
+            </label>
+
+            <input
+              id="formulaSearch"
+              type="search"
+              placeholder="Search by name or topic"
+              autocomplete="off"
+            >
+
           </div>
-          <p id="formulaEmpty" hidden>No matching formulas.</p>
+
+          <div class="stats" id="formulaList">
+
+            <article class="card formula-item">
+              <h3>Percentage</h3>
+              <p>Find a percentage of a value.</p>
+              <p>
+                <strong>
+                  Result = Value × Percentage ÷ 100
+                </strong>
+              </p>
+            </article>
+
+            <article class="card formula-item">
+              <h3>Percentage change</h3>
+              <p>
+                Measure the change from an original value.
+              </p>
+              <p>
+                <strong>
+                  Change (%) = (New − Original) ÷ Original × 100
+                </strong>
+              </p>
+            </article>
+
+            <article class="card formula-item">
+              <h3>Discount</h3>
+              <p>
+                Calculate the saving and sale price.
+              </p>
+              <p>
+                <strong>
+                  Saving = Price × Discount ÷ 100
+                </strong>
+                <br>
+                <strong>
+                  Sale price = Price − Saving
+                </strong>
+              </p>
+            </article>
+
+            <article class="card formula-item">
+              <h3>Triangle area</h3>
+              <p>
+                Use the base and perpendicular height.
+              </p>
+              <p>
+                <strong>
+                  Area = ½ × Base × Height
+                </strong>
+              </p>
+            </article>
+
+            <article class="card formula-item">
+              <h3>Pythagorean theorem</h3>
+              <p>
+                For a right-angled triangle.
+              </p>
+              <p>
+                <strong>
+                  Hypotenuse² = Side₁² + Side₂²
+                </strong>
+              </p>
+            </article>
+
+            <article class="card formula-item">
+              <h3>Circle area</h3>
+              <p>
+                Use the circle's radius.
+              </p>
+              <p>
+                <strong>
+                  Area = π × Radius²
+                </strong>
+              </p>
+            </article>
+
+          </div>
+
+          <p id="formulaEmpty" hidden>
+            No matching formulas.
+          </p>
+
         </div>
+
       </section>
+
     </main>
+
   </div>
+
 </div>
+
+
 <script src="app.js"></script>
+
+
 <script>
   (() => {
-    const titles = { percent: 'Percentage & discount', formulas: 'Formula library' };
+
+    const titles = {
+      percent: 'Percentage & discount',
+      formulas: 'Formula library'
+    };
+
     document.addEventListener('click', event => {
-      const button = event.target.closest('#nav [data-view]');
+
+      const button =
+        event.target.closest('#nav [data-view]');
+
       if (!button || !titles[button.dataset.view]) return;
+
       event.preventDefault();
       event.stopImmediatePropagation();
-      document.querySelectorAll('.view').forEach(view => { view.hidden = view.id !== `view-${button.dataset.view}`; });
-      document.querySelectorAll('#nav [data-view]').forEach(item => item.classList.toggle('active', item === button));
-      document.getElementById('viewTitle').textContent = titles[button.dataset.view];
+
+      document.querySelectorAll('.view').forEach(view => {
+        view.hidden =
+          view.id !== `view-${button.dataset.view}`;
+      });
+
+      document
+        .querySelectorAll('#nav [data-view]')
+        .forEach(item => {
+          item.classList.toggle('active', item === button);
+        });
+
+      document.getElementById('viewTitle').textContent =
+        titles[button.dataset.view];
+
       document.getElementById('viewSub').textContent = '';
+
     }, true);
 
-    const number = id => Number(document.getElementById(id).value);
-    const format = value => Number.isFinite(value) ? value.toLocaleString(undefined, { maximumFractionDigits: 8 }) : '—';
-    document.getElementById('percentCalc').addEventListener('click', () => {
-      const rate = number('percentRate'), value = number('percentValue');
-      const valid = Number.isFinite(rate) && Number.isFinite(value) && document.getElementById('percentRate').value !== '' && document.getElementById('percentValue').value !== '';
-      const result = document.getElementById('percentResult');
-      const steps = document.getElementById('percentSteps');
-      result.firstChild.textContent = valid
-        ? `${format(rate)}% of ${format(value)} = ${format(value * rate / 100)}` : 'Enter valid numbers in both fields.';
-      steps.hidden = !valid;
-      steps.open = false;
-      if (valid) {
-        steps.querySelector('ol').innerHTML = `<li>Convert the percentage to a decimal: ${format(rate)} ÷ 100 = ${format(rate / 100)}.</li><li>Multiply the value by the decimal: ${format(value)} × ${format(rate / 100)} = ${format(value * rate / 100)}.</li>`;
-      }
-    });
-    document.getElementById('discountCalc').addEventListener('click', () => {
-      const price = number('discountPrice'), rate = number('discountRate');
-      const valid = document.getElementById('discountPrice').value !== '' && document.getElementById('discountRate').value !== '' && Number.isFinite(price) && Number.isFinite(rate) && price >= 0 && rate >= 0 && rate <= 100;
-      const saving = price * rate / 100, salePrice = price - saving;
-      const result = document.getElementById('discountResult');
-      const steps = document.getElementById('discountSteps');
-      result.firstChild.textContent = valid
-        ? `You save ${format(saving)}. Sale price: ${format(salePrice)}.` : 'Enter a price and a discount from 0% to 100%.';
-      steps.hidden = !valid;
-      steps.open = false;
-      if (valid) {
-        steps.querySelector('ol').innerHTML = `<li>Calculate the saving: ${format(price)} × ${format(rate)} ÷ 100 = ${format(saving)}.</li><li>Subtract the saving from the original price: ${format(price)} − ${format(saving)} = ${format(salePrice)}.</li>`;
-      }
-    });
-    document.getElementById('formulaSearch').addEventListener('input', event => {
-      const query = event.target.value.trim().toLowerCase();
-      let matches = 0;
-      document.querySelectorAll('.formula-item').forEach(card => {
-        const show = card.textContent.toLowerCase().includes(query);
-        card.hidden = !show;
-        if (show) matches++;
+
+    const number = id =>
+      Number(document.getElementById(id).value);
+
+
+    const format = value =>
+      Number.isFinite(value)
+        ? value.toLocaleString(undefined, {
+            maximumFractionDigits: 8
+          })
+        : '—';
+
+
+    document
+      .getElementById('percentCalc')
+      .addEventListener('click', () => {
+
+        const rate = number('percentRate');
+        const value = number('percentValue');
+
+        const valid =
+          Number.isFinite(rate) &&
+          Number.isFinite(value) &&
+          document.getElementById('percentRate').value !== '' &&
+          document.getElementById('percentValue').value !== '';
+
+        const result =
+          document.getElementById('percentResult');
+
+        const steps =
+          document.getElementById('percentSteps');
+
+        result.firstChild.textContent = valid
+          ? `${format(rate)}% of ${format(value)} = ${format(value * rate / 100)}`
+          : 'Enter valid numbers in both fields.';
+
+        steps.hidden = !valid;
+        steps.open = false;
+
+        if (valid) {
+
+          steps.querySelector('ol').innerHTML = `
+            <li>
+              Convert the percentage to a decimal:
+              ${format(rate)} ÷ 100 = ${format(rate / 100)}.
+            </li>
+            <li>
+              Multiply the value by the decimal:
+              ${format(value)} × ${format(rate / 100)} =
+              ${format(value * rate / 100)}.
+            </li>
+          `;
+
+        }
+
       });
-      document.getElementById('formulaEmpty').hidden = matches !== 0;
-    });
+
+
+    document
+      .getElementById('discountCalc')
+      .addEventListener('click', () => {
+
+        const price = number('discountPrice');
+        const rate = number('discountRate');
+
+        const valid =
+          document.getElementById('discountPrice').value !== '' &&
+          document.getElementById('discountRate').value !== '' &&
+          Number.isFinite(price) &&
+          Number.isFinite(rate) &&
+          price >= 0 &&
+          rate >= 0 &&
+          rate <= 100;
+
+        const saving = price * rate / 100;
+        const salePrice = price - saving;
+
+        const result =
+          document.getElementById('discountResult');
+
+        const steps =
+          document.getElementById('discountSteps');
+
+        result.firstChild.textContent = valid
+          ? `You save ${format(saving)}. Sale price: ${format(salePrice)}.`
+          : 'Enter a price and a discount from 0% to 100%.';
+
+        steps.hidden = !valid;
+        steps.open = false;
+
+        if (valid) {
+
+          steps.querySelector('ol').innerHTML = `
+            <li>
+              Calculate the saving:
+              ${format(price)} × ${format(rate)} ÷ 100 =
+              ${format(saving)}.
+            </li>
+            <li>
+              Subtract the saving from the original price:
+              ${format(price)} − ${format(saving)} =
+              ${format(salePrice)}.
+            </li>
+          `;
+
+        }
+
+      });
+
+
+    document
+      .getElementById('formulaSearch')
+      .addEventListener('input', event => {
+
+        const query =
+          event.target.value.trim().toLowerCase();
+
+        let matches = 0;
+
+        document
+          .querySelectorAll('.formula-item')
+          .forEach(card => {
+
+            const show =
+              card.textContent
+                .toLowerCase()
+                .includes(query);
+
+            card.hidden = !show;
+
+            if (show) matches++;
+
+          });
+
+        document.getElementById('formulaEmpty').hidden =
+          matches !== 0;
+
+      });
+
   })();
 </script>
+
+
+<!-- Service worker registration -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+
+      navigator.serviceWorker
+        .register('/pwabuilder-adv-sw.js', {
+          scope: '/'
+        })
+        .then(registration => {
+          console.log(
+            'CalcX PWA service worker registered:',
+            registration.scope
+          );
+        })
+        .catch(error => {
+          console.error(
+            'CalcX service worker registration failed:',
+            error
+          );
+        });
+
+    });
+  }
+</script>
+
 </body>
 </html>
